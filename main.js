@@ -130,8 +130,8 @@ async function tap(num, golden) {
 	}
 	byId(num).onclick = ""; // Removes the onclick event
 	if(golden) {
-		goldenRaindrops += 1 * double;
-		goldenScore += 1 * double;
+		goldenRaindrops++;
+		goldenScore++;
 		playSound("gold1");
 		byId(num).src = 'images/goldenTap1.png'; // Golden drop explosion animations
 		await sleep(50);
@@ -349,7 +349,6 @@ switchCat(catColor); // Assures that the correct cat is displayed
 unlockUpgrades('rainUpgrade');
 unlockUpgrades('goldUpgrade');
 function unlockUpgrades(which) {
-	console.log(window[which])
 	for (var i = 0; i < window[which]; i++) {
 		upgrade(which, true);
 	}
