@@ -58,9 +58,6 @@ setInterval(function() {
 		moveDrop();
 		moveGolden();
 	}
-	if(doubleTime != 0) {
-		doubleTime--;
-	}
 	save();
 	credits(); // Updates credits
 	byId('score').innerHTML = score;
