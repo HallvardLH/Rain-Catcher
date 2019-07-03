@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Rain Catcher</title>
+        <link rel="shortcut icon" type="image/png" href="images/raindropBig.png"/>
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="gameArea">
+            <div id="score"></div>
+            <img id="cat" src="images/grayCat.gif"/>
+            <section id="dropAnchor"></section>
+        </div>
+
+        <div id="menu">
+            <p class="big">RAIN CATCHER</p>
+            <p class="big" id="highscore"></p>
+            <button onclick="play(), playSound('tap')" class="big">PLAY</button>
+            <button onclick="display('upgrades'), hide('menu'), playSound('tap')" class="big">UPGRADES</button>
+            <button onclick="boolean('creditsDisplayed'), playSound('tap')" class="big">CREDITS</button>
+            <div id="credits">
+                Game by<br /><a href="https://discord.gg/5sqGVj5" target="_blank">Hallvard Studios</a>
+                <br /><br />
+                Background by <br /><a href="https://www.reddit.com/user/Decoder_5448" target="_blank">Decoder_5448</a>
+            </div>
+        </div>
+
+        <div id="upgrades">
+            <section onclick="hide('upgrades'), display('menu'), playSound('tap')" class="back">Back</section>
+            <section class="gold"></section>
+            <img class="goldIcon" src="images/goldenIcon.png"/>
+            <br />
+            <p class="big">Shop</p>
+            <button onclick="display('upgradeUpgrades'), hide('upgrades'), playSound('tap')" class="big">Upgrades</button>
+            <button onclick="display('catUpgrades'), hide('upgrades'), playSound('tap')" class="big">Cats</button>
+        </div>
+
+        <div id="upgradeUpgrades">
+            <section onclick="hide('upgradeUpgrades'), display('upgrades'), playSound('tap')" class="back">Back</section>
+            <section class="gold"></section>
+            <img class="goldIcon" src="images/goldenIcon.png"/>
+            <br />
+            <p class="big">Upgrades</p>
+            <button onclick="upgrade('rainUpgrade'), playSound('tap')" class="medium">Slower rain<br />100 gold<div style="font-size:12vw"><font id="rainGreen" style="color:#00b003"></font><font id="rainRed" style="color:#f21111">..........</font></div></button>
+            <button onclick="upgrade('goldUpgrade'), playSound('tap')" class="medium">Higher gold chance<br />100 gold<div style="font-size:12vw"><font id="goldGreen" style="color:#00b003"></font><font id="goldRed" style="color:#f21111">..........</font></div></button>
+        </div>
+
+        <div id="catUpgrades">
+            <section onclick="hide('catUpgrades'), display('upgrades'), playSound('tap')" class="back">Back</section>
+            <section class="gold"></section>
+            <img class="goldIcon" src="images/goldenIcon.png"/>
+            <br />
+            <p class="big">Cats</p>
+            <img class="upgradeCat" id="grayCat" onclick="switchCat('gray'), playSound('tap')" src="images/grayCat.gif"/>
+            <img class="upgradeCat" id="brownCat" onclick="switchCat('brown'), playSound('tap')" src="images/brownCat.gif"/>
+            <img class="upgradeCat" id="blackCat" onclick="switchCat('black'), playSound('tap')" src="images/blackCat.gif"/>
+            <img class="upgradeCat" id="whiteCat" onclick="switchCat('white'), playSound('tap')" src="images/whiteCat.gif"/>
+            <img class="upgradeCat" id="orangeCat" onclick="switchCat('orange'), playSound('tap')" src="images/orangeCat.gif"/>
+            <img class="upgradeCat" id="pinkCat" onclick="switchCat('pink'), playSound('tap')" src="images/pinkCat.gif"/>
+            <button id="buyCat"></button>
+            <!-- <button class="next">Next</button><button class="next">Previous</button> -->
+        </div>
+
+        <div id="modal">
+          <div class="gameOver">
+            <p class="big">GAME OVER!</p>
+            <p class="big" id="thisScore"></p>
+            <button onclick="reset(), playSound('tap')" class="big">PLAY</button>
+            <button onclick="display('menu'), hide('modal'), hide('gameArea'), playSound('tap')" class="big">MENU</button>
+          </div>
+
+        </div>
+
+        <audio id="water1"><source src="audio/water1.mp3" type="audio/mpeg"></audio>
+        <audio id="water2"><source src="audio/water2.mp3" type="audio/mpeg"></audio>
+        <audio id="water3"><source src="audio/water3.mp3" type="audio/mpeg"></audio>
+        <audio id="gold1"><source src="audio/gold1.mp3" type="audio/mpeg"></audio>
+        <audio id="gameOver"><source src="audio/gameOver.mp3" type="audio/mpeg"></audio>
+        <audio id="tap"><source src="audio/tap.mp3" type="audio/mpeg"></audio>
+
+    </body>
+    <script src="main.js"></script>
+</html>
