@@ -47,6 +47,7 @@ function shorten(string) {
 =======================================================================================*/
 var storage = window.localStorage; // Shorthand
 
+// Loops
 var score = 0;
 var noSave = false;
 setInterval(function() {
@@ -128,8 +129,8 @@ async function tap(num, golden) {
 	}
 	byId(num).onclick = ""; // Removes the onclick event
 	if(golden) {
-		goldenRaindrops++
-		goldenScore++
+		goldenRaindrops++;
+		goldenScore++;
 		playSound("gold1");
 		byId(num).src = 'images/goldenTap1.png'; // Golden drop explosion animations
 		await sleep(50);
@@ -215,9 +216,6 @@ var pinkCat = false;
 var colors = ['gray', 'brown', 'black', 'white', 'orange', 'pink'];
 var catColor = 'gray';
 function switchCat(color) {
-	if(window[color + 'Cat'] == null) { // Simple fix for potential bug
-		switchCat('gray');
-	}
 	if(window[color + 'Cat']) {
 		catColor = color;
 		for(var i = 0; i < 6; i++) {
@@ -356,6 +354,9 @@ if(storage.getItem("highscore") != null) {
 	for (var i = 0; i < 6; i++) {
 		window[colors[i] + 'Cat'] = JSON.parse(storage.getItem(colors[i] + 'Cat'));
 	}
+}
+if(catColor == null) {
+	catColor = 'gray';
 }
 console.log(catColor);
 switchCat(catColor); // Assures that the correct cat is displayed
