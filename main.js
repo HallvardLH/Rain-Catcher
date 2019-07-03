@@ -2,20 +2,20 @@
 /*=====================================================================================
 									 Helper functions
 =======================================================================================*/
+var byId = function(id) {
+	return document.getElementById(id);
+}
+
 function hide(id) {
-    document.getElementById(id).style.display = "none";
+    byId(id).style.display = "none";
 }
 
 function display(id) {
-    document.getElementById(id).style.display = "block";
+    byId(id).style.display = "block";
 }
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-var byId = function(id) {
-	return document.getElementById(id);
 }
 
 function boolean(variable) {
@@ -23,7 +23,7 @@ function boolean(variable) {
 }
 
 function playSound(sound) {
-	var audio = document.getElementById(sound);
+	var audio = byId(sound);
 	audio.currentTime = 0;
 	audio.play();
 }
@@ -47,21 +47,12 @@ function shorten(string) {
 =======================================================================================*/
 var storage = window.localStorage; // Shorthand
 
-function play() {
-	reset(); // Resets game
-	hide('menu');
-	display('gameArea');
-}
-
 var score = 0;
 var noSave = false;
 setInterval(function() {
 	if(!pause) { // Only moves drops of the game is unpaused
 		moveDrop();
 		moveGolden();
-	}
-	if(doubleTime != 0) {
-		doubleTime--;
 	}
 	if(!noSave) {
 		save();
@@ -86,7 +77,7 @@ spawnDrop(); // Calls the function on load
 async function spawnDrop() {
 	if(!pause) {
 		var str = document.createElement('div');
-		str.innerHTML = '<img draggable="false" class="raindrop" name="raindrop" onclick="tap(' + iterations + ')" id="' + iterations + '" src="images/raindrop.png"/>';
+		str.innerHTML = '<img draggable="false" class="raindrop" name="raindrop" onclick="tap(' + iterations + ')" id="' + iterations + '" src="images/raindrop2.png"/>';
 		byId("dropAnchor").prepend(str);
 
 		speeds.splice(iterations, 0, rainSpeed);
@@ -110,12 +101,12 @@ async function spawnDrop() {
 	}
 	await sleep(frequency); // Function calls itself after a certain amount of time
 	if(!pause) {
-		dropPos.splice(dropPos.length+1, 0, -20); // Adds a new index to the dropPos array
+		dropPos.splice(dropPos.length+1, 0, -40); // Adds a new index to the dropPos array
 	}
 	spawnDrop();
 }
 
-var dropPos = [-20]; // Negative so that it starts off-screen
+var dropPos = [-40]; // Negative so that it starts off-screen
 var dropRemoved = -100;
 function moveDrop() {
 	for(var i = dropRemoved; i < drops; i++) { // Loops through all existing drops and moves them
@@ -137,8 +128,8 @@ async function tap(num, golden) {
 	}
 	byId(num).onclick = ""; // Removes the onclick event
 	if(golden) {
-		goldenRaindrops++;
-		goldenScore++;
+		goldenRaindrops++
+		goldenScore++
 		playSound("gold1");
 		byId(num).src = 'images/goldenTap1.png'; // Golden drop explosion animations
 		await sleep(50);
@@ -160,14 +151,26 @@ async function tap(num, golden) {
    	elem.parentNode.removeChild(elem);
 }
 
+var gameOverBuffer = false;
 var highscore = 0;
-function gameOver() {
+async function gameOver() {
 	playSound('gameOver');
 	byId('modal').style.display = "block";
 	byId('thisScore').innerHTML = 'Score: ' + score + '<br />Gold:&nbsp; ' + goldenScore;
 	pause = true;
 	if(score > highscore) {
 		highscore = score;
+	}
+	gameOverBuffer = true;
+	await sleep(4000);
+	gameOverBuffer = false;
+}
+
+function play() {
+	if(!gameOverBuffer) {
+		reset(); // Resets game
+		hide('menu');
+		display('gameArea');
 	}
 }
 
@@ -212,6 +215,9 @@ var pinkCat = false;
 var colors = ['gray', 'brown', 'black', 'white', 'orange', 'pink'];
 var catColor = 'gray';
 function switchCat(color) {
+	if(window[color + 'Cat'] == null) { // Simple fix for potential bug
+		switchCat('gray');
+	}
 	if(window[color + 'Cat']) {
 		catColor = color;
 		for(var i = 0; i < 6; i++) {
@@ -254,7 +260,7 @@ function upgrade(which, load)  {
 					byId('rainGreen').innerHTML += '.';
 				}
 			}
-			break;
+		break;
 		case('goldUpgrade'):
 			if(goldenRaindrops >= 100 || load) {
 				if(goldUpgrade < 10 || load) {
@@ -267,7 +273,7 @@ function upgrade(which, load)  {
 					byId('goldGreen').innerHTML += '.';
 				}
 			}
-			break;
+		break;
 	}
 }
 
@@ -279,14 +285,14 @@ var speedsGolden = []; // Individual speeds are kept to avoid changes in speed i
 var iterationsGolden = 0;
 var dropsGolden = 0;
 var goldenExists = false;
-var goldenChance = 0.2;
+var goldenChance = 0.3;
 spawnGolden();
 async function spawnGolden() {
 	if(!pause && score > 1) {
 		if(Math.random() <= goldenChance) {
 			goldenExists = true;
 			var str = document.createElement('div');
-			str.innerHTML = '<img draggable="false" class="raindrop" onclick="tap(' + iterationsGolden + ', true)" id="' + iterationsGolden + 'golden" src="images/goldenRaindrop.png"/>';
+			str.innerHTML = '<img draggable="false" class="raindrop" onclick="tap(' + iterationsGolden + ', true)" id="' + iterationsGolden + 'golden" src="images/goldenRaindrop2.png"/>';
 			byId("dropAnchor").prepend(str);
 
 			speedsGolden.splice(iterationsGolden, 0, 0.6);
@@ -299,12 +305,12 @@ async function spawnGolden() {
 	}
 	await sleep(1000); // Function calls itself after a certain wait time
 	if(!pause) {
-		dropPosGolden.splice(dropPosGolden.length+1, 0, -20); // Adds a new index to the dropPosGolden array
+		dropPosGolden.splice(dropPosGolden.length+1, 0, -40); // Adds a new index to the dropPosGolden array
 	}
 	spawnGolden();
 }
 
-var dropPosGolden = [-20];
+var dropPosGolden = [-40];
 var dropRemovedGolden = -100;
 function moveGolden() {
 	if(goldenExists)
@@ -346,8 +352,6 @@ if(storage.getItem("highscore") != null) {
 	// Upgrades
 	rainUpgrade = Number(storage.getItem('rainUpgrade'));
 	goldUpgrade = Number(storage.getItem('goldUpgrade'));
-
-	doubleTime = Number(storage.getItem('doubleTime'));
 	// Cats
 	for (var i = 0; i < 6; i++) {
 		window[colors[i] + 'Cat'] = JSON.parse(storage.getItem(colors[i] + 'Cat'));

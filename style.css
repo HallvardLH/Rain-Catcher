@@ -37,10 +37,10 @@ button {
 }
 
 .raindrop {
-	top:-20%;
+	top:-40%;
 	position:absolute;
 	width:50%;
-	height:30%;
+	height:55%;
 	min-width:15%;
 	min-height:10%;
 	right:50%;

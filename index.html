@@ -19,11 +19,11 @@
             <p class="big" id="highscore"></p>
             <button onclick="play(), playSound('tap')" class="big">PLAY</button>
             <button onclick="display('upgrades'), hide('menu'), playSound('tap')" class="big">UPGRADES</button>
-            <button onclick="boolean('creditsDisplayed'), playSound('tap')" class="big">CREDITS</button>
+            <button id="creditsButton" onclick="boolean('creditsDisplayed'), playSound('tap')" class="big">CREDITS</button>
             <div id="credits">
                 Game by<br /><a href="https://discord.gg/5sqGVj5" target="_blank">Hallvard Studios</a>
                 <br /><br />
-                Background by <br /><a href="https://www.reddit.com/user/Decoder_5448" target="_blank">Decoder_5448</a>
+                Background by <br /><a href="https://www.reddit.com/user/Decoder_5448">Decoder_5448</a>
             </div>
         </div>
 
@@ -60,7 +60,6 @@
             <img class="upgradeCat" id="orangeCat" onclick="switchCat('orange'), playSound('tap')" src="images/orangeCat.gif"/>
             <img class="upgradeCat" id="pinkCat" onclick="switchCat('pink'), playSound('tap')" src="images/pinkCat.gif"/>
             <button id="buyCat"></button>
-            <!-- <button class="next">Next</button><button class="next">Previous</button> -->
         </div>
 
         <div id="modal">
