@@ -31,9 +31,10 @@ function playSound(sound) {
 creditsDisplayed = false;
 function credits() {
 	if(creditsDisplayed) {
-		display('credits')
+		display('credits');
+		hide('creditsButton');
 	} else {
-		hide('credits')
+		hide('credits');
 	}
 }
 
