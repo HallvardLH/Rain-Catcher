@@ -332,18 +332,21 @@ function save() {
 	}
 }
 
-if(storage.length > 0) {
+if(storage.getItem("highscore") != null) {
 	highscore = Number(storage.getItem("highscore"));
 	catColor = storage.getItem("catColor")
 	goldenRaindrops = Number(storage.getItem('goldenRaindrops'));
 	// Upgrades
 	rainUpgrade = Number(storage.getItem('rainUpgrade'));
 	goldUpgrade = Number(storage.getItem('goldUpgrade'));
+
+	doubleTime = Number(storage.getItem('doubleTime'));
 	// Cats
 	for (var i = 0; i < 6; i++) {
 		window[colors[i] + 'Cat'] = JSON.parse(storage.getItem(colors[i] + 'Cat'));
 	}
 }
+console.log(catColor);
 switchCat(catColor); // Assures that the correct cat is displayed
 
 unlockUpgrades('rainUpgrade');
