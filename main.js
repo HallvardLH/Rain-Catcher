@@ -54,12 +54,18 @@ function play() {
 }
 
 var score = 0;
+var noSave = false;
 setInterval(function() {
 	if(!pause) { // Only moves drops of the game is unpaused
 		moveDrop();
 		moveGolden();
 	}
-	save();
+	if(doubleTime != 0) {
+		doubleTime--;
+	}
+	if(!noSave) {
+		save();
+	}
 	credits(); // Updates credits
 	byId('score').innerHTML = score;
 	byId('highscore').innerHTML = 'Best: ' + highscore;
